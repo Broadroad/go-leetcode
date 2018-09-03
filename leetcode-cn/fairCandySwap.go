@@ -74,8 +74,26 @@ func fairCandySwap(A []int, B []int) []int {
 	return a
 }
 
+func fairCandySwap1(A []int, B []int) []int {
+	sumA := calSum(A)
+	sumB := calSum(B)
+
+	s := make(map[int]bool)
+	for _, v := range B {
+		s[v] = true
+	}
+
+	for _, v := range A {
+		tmp := sumB - sumA + 2*v
+		if tmp%2 == 0 && s[tmp/2] == true {
+			return []int{v, tmp / 2}
+		}
+	}
+	return []int{0, 0}
+}
+
 func main() {
 	A := []int{1, 2}
 	B := []int{2, 3}
-	fmt.Println(fairCandySwap(A, B))
+	fmt.Println(fairCandySwap1(A, B))
 }
